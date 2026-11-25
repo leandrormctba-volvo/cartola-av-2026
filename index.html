@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#ee6b1c">
+<title>Cartola AV 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@500;600;700&display=swap">
+<style>
+/* Layout: faixa laranja de abertura (como os cards da liga) + seções escuras empilhadas, uma coluna no celular */
+:root{
+  --bg:#15110e; --panel:#1f1914; --panel2:#2a211a; --line:#3d3027;
+  --fg:#f7efe5; --muted:#b5a698; --orange:#ee6b1c; --orange-d:#c4520f;
+  --gold:#f0c04f; --silver:#cfd3d8; --bronze:#d08b52; --up:#6cc784; --down:#f07565;
+  --display:"Bebas Neue", Impact, "Arial Narrow", sans-serif;
+  --body:"Barlow", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --cond:"Barlow Condensed", "Arial Narrow", system-ui, sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:64px}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 var(--body);overflow-x:hidden}
+.wrap{max-width:1100px;margin:0 auto;padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+h1,h2,h3{font-family:var(--display);font-weight:400;letter-spacing:.02em;line-height:1;margin:0;text-wrap:balance}
+h2{font-size:clamp(2rem,6vw,2.8rem)}
+h2 small{display:block;font:600 .8rem/1.3 var(--cond);letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-bottom:.35rem}
+.lead{color:var(--muted);max-width:62ch;margin:.5rem 0 0}
+.num{font-variant-numeric:tabular-nums}
+button,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+/* Abertura */
+.hero{background:radial-gradient(circle at 85% 15%, #ff8a3d 0, transparent 45%), var(--orange);color:#1b0f06;
+  margin-top:calc(-1 * env(safe-area-inset-top, 0px));padding-top:calc(env(safe-area-inset-top, 0px) + 2.2rem);padding-bottom:2.4rem;position:relative;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:auto 0 0 0;height:14px;background:radial-gradient(circle, rgba(255,255,255,.75) 2px, transparent 2.5px) 0 0/18px 14px}
+.ribbon{display:inline-block;background:linear-gradient(100deg,#b98a1c,#f6dc83 35%,#d9a93a 60%,#fbe7a0);padding:.55rem 1.4rem .35rem;
+  clip-path:polygon(4% 0,96% 0,100% 50%,96% 100%,4% 100%,0 50%);box-shadow:0 6px 0 rgba(0,0,0,.15)}
+.ribbon h1{font-size:clamp(2.6rem,10vw,5rem);color:#1b0f06}
+.hero .sub{font:700 clamp(1rem,3.5vw,1.25rem)/1.3 var(--cond);text-transform:uppercase;letter-spacing:.1em;margin-top:1rem}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:1.6rem}
+.kpi{background:#1b0f06;color:var(--fg);border-radius:10px;padding:.8rem .9rem;min-width:0}
+.kpi b{display:block;font:400 clamp(1.8rem,6vw,2.6rem)/1 var(--display);color:var(--gold);font-variant-numeric:tabular-nums}
+.kpi span{font:600 .78rem/1.25 var(--cond);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.kpi em{display:block;font-style:normal;font-size:.85rem;color:var(--fg);margin-top:.2rem;overflow-wrap:anywhere}
+
+/* Navegação */
+nav.top{position:sticky;top:env(safe-area-inset-top, 0px);z-index:20;background:rgba(21,17,14,.94);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top, 0px);z-index:30;background:var(--bg)}
+nav.top .wrap{display:flex;gap:8px;align-items:center;padding-block:8px}
+.links{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0}
+.links::-webkit-scrollbar{display:none}
+.links a{flex:none;color:var(--muted);text-decoration:none;font:600 .9rem var(--cond);letter-spacing:.06em;text-transform:uppercase;padding:.45rem .7rem;border-radius:999px}
+.links a:hover{color:var(--fg);background:var(--panel2)}
+.btn{flex:none;display:inline-flex;align-items:center;gap:.4rem;border:0;cursor:pointer;background:var(--gold);color:#1b0f06;
+  font:700 .9rem var(--cond);letter-spacing:.06em;text-transform:uppercase;padding:.5rem .9rem;border-radius:8px;text-decoration:none}
+.btn.ghost{background:transparent;color:var(--fg);border:1px solid var(--line)}
+.btn svg{width:16px;height:16px}
+
+section{padding-block:2.6rem;border-bottom:1px solid var(--line)}
+.head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:12px;margin-bottom:1.3rem}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:1rem}
+
+/* Chips de rodada */
+.chips{display:grid;grid-template-columns:repeat(17,minmax(0,1fr));gap:6px}
+.chip{border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:.45rem 0;cursor:pointer;font:600 .95rem var(--cond);font-variant-numeric:tabular-nums}
+.chip:hover:not(:disabled){border-color:var(--orange)}
+.chip[aria-pressed="true"]{background:var(--orange);border-color:var(--orange);color:#1b0f06}
+.chip:disabled{opacity:.28;cursor:not-allowed;text-decoration:line-through}
+.legend-note{font-size:.85rem;color:var(--muted);margin:.6rem 0 0}
+
+.round-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.25fr);gap:16px;margin-top:1.2rem}
+.round-title{font:400 clamp(2.4rem,8vw,3.4rem)/1 var(--display);color:var(--orange)}
+.podium{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));align-items:end;gap:8px;margin-top:1rem}
+.step{text-align:center;min-width:0}
+.step .who{font:700 1.05rem/1.15 var(--cond);overflow-wrap:anywhere}
+.step .team{font-size:.78rem;color:var(--muted);line-height:1.2;overflow-wrap:anywhere;min-height:2.3em}
+.step .pts{font:400 1.5rem/1 var(--display);margin:.3rem 0}
+.block{border-radius:8px 8px 0 0;display:grid;place-items:center;font:400 2.2rem/1 var(--display);color:#1b0f06}
+.p1 .block{height:120px;background:linear-gradient(var(--gold),#c8952a)}
+.p2 .block{height:88px;background:linear-gradient(var(--silver),#9097a0)}
+.p3 .block{height:64px;background:linear-gradient(var(--bronze),#9c5e2e)}
+.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:1rem}
+.stat{background:var(--panel2);border-radius:8px;padding:.6rem .7rem;min-width:0}
+.stat span{display:block;font:600 .75rem var(--cond);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.stat b{font:400 1.6rem/1.1 var(--display);font-variant-numeric:tabular-nums}
+.delta{font:600 .85rem var(--cond);margin-left:.3rem}
+.delta.up{color:var(--up)} .delta.down{color:var(--down)}
+
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+th{font:600 .75rem var(--cond);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:left;padding:.5rem .5rem;border-bottom:1px solid var(--line)}
+td{padding:.5rem .5rem;border-bottom:1px solid var(--line);vertical-align:middle}
+td.r,th.r{text-align:right}
+.pos{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--panel2);font:700 .95rem var(--cond)}
+tr.g1 .pos{background:var(--gold);color:#1b0f06} tr.g2 .pos{background:var(--silver);color:#1b0f06} tr.g3 .pos{background:var(--bronze);color:#1b0f06}
+.nm{font-weight:600;line-height:1.2}
+.tm{font-size:.8rem;color:var(--muted);line-height:1.2}
+.gapsmall{display:block;font-size:.75rem;color:var(--muted)}
+.prize{color:var(--gold);font-weight:700;white-space:nowrap}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+#etapas tbody tr{cursor:pointer}
+#etapas tbody tr:hover{background:var(--panel2)}
+#etapas tbody tr.on{background:rgba(238,107,28,.16)}
+
+/* Campeões */
+.champs{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.champ{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:.7rem .8rem;cursor:pointer;text-align:left;min-width:0}
+.champ:hover{border-color:var(--gold)}
+.champ .rd{font:600 .75rem var(--cond);letter-spacing:.1em;text-transform:uppercase;color:var(--orange)}
+.champ .nm{font-size:1.05rem;margin-top:.15rem;overflow-wrap:anywhere}
+.champ .pt{font:400 1.5rem/1 var(--display);color:var(--gold);margin-top:.3rem}
+
+/* Gráfico */
+.chartbox{min-width:540px}
+.chart-legend{display:flex;flex-wrap:wrap;gap:14px;font:600 .85rem var(--cond);color:var(--muted);margin-bottom:.4rem}
+.chart-legend i{display:inline-block;width:14px;height:3px;border-radius:2px;vertical-align:middle;margin-right:6px}
+
+/* Ranking */
+.controls{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.controls label{font:600 .8rem var(--cond);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:6px}
+select{background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:.4rem .5rem}
+.seg{display:flex;flex-wrap:wrap;gap:4px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:4px}
+.seg button{border:0;background:transparent;padding:.4rem .7rem;border-radius:7px;cursor:pointer;font:600 .9rem var(--cond);color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--orange);color:#1b0f06}
+.bars{display:grid;gap:6px;margin-top:1rem}
+.bar{display:grid;grid-template-columns:30px minmax(0,190px) minmax(0,1fr) 84px;gap:10px;align-items:center}
+.bar .track{height:22px;background:var(--panel2);border-radius:5px;overflow:hidden}
+.bar .fill{height:100%;background:linear-gradient(90deg,var(--orange-d),var(--orange));border-radius:5px;transition:width .5s ease}
+.bar:nth-child(1) .fill{background:linear-gradient(90deg,#c8952a,var(--gold))}
+.bar .v{text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
+.bar .who{min-width:0}
+.bar .who .nm,.bar .who .tm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.more{margin-top:.8rem}
+
+/* Recordes */
+.records{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.rec{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:1rem;min-width:0}
+.rec span{font:600 .78rem var(--cond);letter-spacing:.1em;text-transform:uppercase;color:var(--orange)}
+.rec b{display:block;font:400 2.3rem/1 var(--display);color:var(--gold);margin:.35rem 0 .2rem;font-variant-numeric:tabular-nums}
+.rec p{margin:0;font-size:.92rem;color:var(--fg)}
+.rec p small{color:var(--muted)}
+
+/* Perfil */
+.profile{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:1rem}
+.strip{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:6px;margin-top:1rem}
+.cell{border-radius:7px;background:var(--panel2);text-align:center;padding:.35rem 0;font:600 .8rem var(--cond);color:var(--muted)}
+.cell b{display:block;font:400 1.3rem/1 var(--display);color:var(--fg)}
+.cell.in{background:rgba(238,107,28,.22);color:var(--fg)}
+.cell.w{background:var(--gold);color:#1b0f06}.cell.w b{color:#1b0f06}
+.cell.na{opacity:.35}
+
+footer{padding-block:2rem 3rem;color:var(--muted);font-size:.88rem}
+.print-only{display:none}
+
+@media (max-width:820px){
+  .round-grid{grid-template-columns:minmax(0,1fr)}
+  .records{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .profile{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .chips{grid-template-columns:repeat(9,minmax(0,1fr))}
+}
+@media (max-width:560px){
+  body{font-size:15px}
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .records{grid-template-columns:minmax(0,1fr)}
+  .chips{grid-template-columns:repeat(6,minmax(0,1fr))}
+  .strip{grid-template-columns:repeat(5,minmax(0,1fr))}
+  .bar{grid-template-columns:24px minmax(0,1fr) 74px;row-gap:3px}
+  .bar .track{grid-column:2 / 4;grid-row:2;height:10px}
+  .btn .lbl-long{display:none}
+  .step .pts{font-size:1.25rem}
+  .block{font-size:1.8rem}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.bar .fill{transition:none}}
+
+/* PDF / impressão */
+@page{size:A4;margin:10mm}
+@media print{
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  html,body{background:var(--bg)}
+  nav.top,.no-print,.more{display:none!important}
+  .print-only{display:block}
+  section{padding-block:1.2rem;break-inside:avoid-page}
+  section.breakable{break-inside:auto}
+  .hero{padding-top:1.4rem}
+  .chartbox{min-width:0}
+  .round-grid{grid-template-columns:minmax(0,1fr) minmax(0,1.25fr)}
+  .records{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .rec,.panel,.champ,.mini{break-inside:avoid}
+  .all-rounds{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+}
+.mini{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:.6rem .7rem}
+.mini h3{font-size:1.4rem;color:var(--orange);margin-bottom:.3rem}
+.mini table{font-size:.78rem}
+.mini td,.mini th{padding:.18rem .3rem}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="ribbon"><h1>Cartola AV 2026</h1></div>
+    <div class="sub">Liga da Associação · Panorama das rodadas <span id="faixa"></span></div>
+    <div class="kpis" id="kpis"></div>
+  </div>
+</header>
+
+<nav class="top no-print" aria-label="Seções">
+  <div class="wrap">
+    <div class="links">
+      <a href="#rodada">Rodada</a>
+      <a href="#campeoes">Campeões</a>
+      <a href="#evolucao">Evolução</a>
+      <a href="#ranking">Ranking</a>
+      <a href="#recordes">Recordes</a>
+      <a href="#perfil">Participante</a>
+    </div>
+    <a class="btn" href="Cartola-AV-2026.pdf" download title="Baixar o relatório completo em PDF">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 20h16"/></svg>
+      <span>PDF</span>
+    </a>
+    <button class="btn ghost" id="printBtn" type="button" title="Imprimir ou salvar como PDF a visão atual">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9V3h12v6M6 18H4v-7h16v7h-2M7 14h10v7H7z"/></svg>
+      <span class="lbl-long">Imprimir</span>
+    </button>
+  </div>
+</nav>
+
+<main>
+  <section id="rodada">
+    <div class="wrap">
+      <div class="head">
+        <div>
+          <h2><small>Filtro por etapa</small>Quem ganhou cada rodada</h2>
+          <p class="lead">Toque numa rodada para ver o pódio, o top 10 e como ela se compara com a rodada anterior.</p>
+        </div>
+      </div>
+      <div class="chips no-print" id="chips" role="group" aria-label="Escolher rodada"></div>
+      <p class="legend-note no-print">Rodadas riscadas ainda não têm o card de resultado cadastrado.</p>
+
+      <div class="round-grid">
+        <div class="panel">
+          <div class="round-title" id="rTitle"></div>
+          <div class="podium" id="podium"></div>
+          <div class="stats" id="rStats"></div>
+        </div>
+        <div class="panel">
+          <div class="scroll"><table id="rTable"></table></div>
+        </div>
+      </div>
+
+      <h3 style="font-size:1.8rem;margin:2rem 0 .8rem">Comparativo etapa a etapa</h3>
+      <div class="panel scroll"><table id="etapas"></table></div>
+    </div>
+  </section>
+
+  <section id="campeoes">
+    <div class="wrap">
+      <div class="head"><div>
+        <h2><small>Galeria</small>Campeões por rodada</h2>
+        <p class="lead">Cada campeão levou R$ 20,00. Toque num card para abrir a rodada completa.</p>
+      </div></div>
+      <div class="champs" id="champs"></div>
+    </div>
+  </section>
+
+  <section id="evolucao">
+    <div class="wrap">
+      <div class="head"><div>
+        <h2><small>Nível da liga</small>Evolução das pontuações</h2>
+        <p class="lead">Pontos do campeão, média do top 10 e nota de corte (10º lugar, a última vaga premiada) em cada rodada.</p>
+      </div></div>
+      <div class="panel">
+        <div class="chart-legend">
+          <span><i style="background:var(--gold)"></i>Campeão</span>
+          <span><i style="background:var(--orange)"></i>Média do top 10</span>
+          <span><i style="background:var(--muted)"></i>Corte (10º)</span>
+          <span><i style="background:repeating-linear-gradient(90deg,var(--muted) 0 4px,transparent 4px 7px)"></i>Rodadas sem registro</span>
+        </div>
+        <div class="scroll"><div class="chartbox" id="chart"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="ranking" class="breakable">
+    <div class="wrap">
+      <div class="head"><div>
+        <h2><small>Acumulado</small>Ranking da temporada</h2>
+        <p class="lead">Some o desempenho de todos no período escolhido. Premiação por rodada: R$ 20, 15, 12, 10 e R$ 5 do 5º ao 10º.</p>
+      </div></div>
+      <div class="controls no-print">
+        <label for="de">De <select id="de"></select></label>
+        <label for="ate">até <select id="ate"></select></label>
+        <div class="seg" id="metric" role="group" aria-label="Critério do ranking">
+          <button type="button" data-m="premio" aria-pressed="true">Prêmios R$</button>
+          <button type="button" data-m="pres" aria-pressed="false">Top 10</button>
+          <button type="button" data-m="vit" aria-pressed="false">Vitórias</button>
+          <button type="button" data-m="pod" aria-pressed="false">Pódios</button>
+          <button type="button" data-m="media" aria-pressed="false">Média pts</button>
+        </div>
+      </div>
+      <p class="legend-note" id="rkNote"></p>
+      <div class="bars" id="bars"></div>
+      <button class="btn ghost more" id="moreBtn" type="button">Mostrar todos</button>
+    </div>
+  </section>
+
+  <section id="recordes">
+    <div class="wrap">
+      <div class="head"><div>
+        <h2><small>Destaques</small>Recordes e curiosidades</h2>
+      </div></div>
+      <div class="records" id="records"></div>
+    </div>
+  </section>
+
+  <section id="perfil" class="no-print">
+    <div class="wrap">
+      <div class="head"><div>
+        <h2><small>Raio-x</small>Desempenho por participante</h2>
+        <p class="lead">Escolha um nome para ver prêmios, presenças no top 10 e a posição em cada rodada.</p>
+      </div>
+      <label class="controls" for="pessoa"><select id="pessoa"></select></label></div>
+      <div class="profile" id="pCards"></div>
+      <div class="strip" id="pStrip"></div>
+      <p class="legend-note" id="pTimes"></p>
+    </div>
+  </section>
+
+  <section class="print-only breakable" id="apendice">
+    <div class="wrap">
+      <h2 style="margin-bottom:1rem"><small>Anexo</small>Top 10 de todas as rodadas</h2>
+      <div class="all-rounds" id="allRounds"></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    Dados transcritos dos cards oficiais de resultado da liga Cartola AV 2026. Rodadas 8 e 10 a 22 ainda não foram cadastradas.
+    O "Kiko" da 24ª rodada foi contado como Leonardo (mesmo time, KIKO Futebol Show).
+  </div>
+</footer>
+
+<script>
+// ===== DADOS: [participante, time, pontos] na ordem de classificação (1º ao 10º) =====
+const RAW = {
+ 1:[["Leonardo","KIKO Futebol Show",85.55],["Eduardo","Time de Centavos",84.15],["Adriel","Agrejonis FC",83.86],["Icaro","Maragogia",82.92],["João","Passando a Patrola F.C.",79.95],["Adelio","Athletico 1977",79.11],["Wagner","Wagão Futeba",77.99],["Odair","Império Simão",77.40],["Adriano","Tamandayorque FC",76.20],["Matheus","Patriots MK",75.70]],
+ 2:[["Diogo","DT Football Team",106.20],["Adriano","Tamandayorque FC",99.40],["Matheus","Patriots MK",98.90],["Ari","Azeitona_64",94.34],["Marcos","Kurchchoff FC",92.80],["Fabio","P@in Machine",92.60],["Felipe","Pacheco F.C.",91.20],["Sergio","São Leal FC",89.85],["Everton","Coxa 83",89.48],["Odair","Império Simão",88.18]],
+ 3:[["Raffael","RaffaelRGS",115.16],["Andre","Galácticos de Pinhais",112.55],["Welinton","Avante Palestra Club",109.25],["Marcos","Caiua93",104.26],["Neusir","Quart4 Força4 SCCP",103.70],["Cristiano","Schuh Team",103.34],["Placido","Flaplatz",102.76],["Guilherme","#desbochandoFC",102.00],["Edoni","Só no Golle FC",100.60],["Wellinton","Peka35",97.36]],
+ 4:[["Odair","Império Simão",100.36],["Giovane","Club Inazuma Eleven",98.55],["Ricardo","Head Inited K9",97.96],["Jhenifer","Bando 1910",96.36],["Rafinha","Império VSP FC",91.31],["Adriano","Tamandayorque FC",90.95],["Adelio","Athletico 1977",89.58],["Gilmar","Unisport",88.26],["Everton","Coxa 83",87.35],["Rodrigo","SCCP Wenceslau",85.35]],
+ 5:[["Giovane","Club Inazuma Eleven",117.42],["Raffael","RaffaelRGS",116.82],["Everton","Coxa 83",114.42],["Placido","Flaplatz",109.89],["Eduardo","Toca em Mim Pai FC",106.24],["Odair","Império Simão",98.79],["Pedro","Olympique de Morselli",98.02],["João","Mi Sigura FC",97.47],["Adelio","Athletico 1977",95.86],["Rafinha","Império VSP FC",95.57]],
+ 6:[["Adriel","Agrejonis FC",86.90],["João","Mi Sigura FC",82.71],["Nilton","Jota10CAP",81.64],["Aurelio","Futebas D+",80.02],["Aline","AlineBassani",79.99],["Placido","Flaplatz",79.31],["Izidoro","King James2023",78.80],["Ana","Aninha_Silva FC",78.31],["Wagner","O Coritiba é Pequeno",78.01],["Paulo","Buiu Marrentos F.C.",77.31]],
+ 7:[["Zyla","zylaclube",95.87],["João","Mi Sigura FC",90.37],["Marcos","Caiua93",89.57],["Everton","Coxa 83",89.47],["Irineu","Bateias 1923",89.37],["Leandro","vinotteamFC",87.37],["Rafael","Athletico F.R.G",85.77],["Aurelio","Futebas D+",85.51],["Rodrigo","Skull City",83.97],["Raffael","RaffaelRGS",83.91]],
+ 9:[["Ana","Aninha_Silva FC",106.04],["Jhenifer","Bando 1910",104.84],["Diogo","DT Football Team",103.88],["Eduardo","Toca em Mim Pai FC",103.78],["Leonardo","KIKO Futebol Show",103.38],["Icaro","Maragogia",102.08],["Deivid","É caixaaaa...",100.68],["Augusto","Koga 1991 FC",98.86],["Osmar","EC/Osmarito",97.44],["Rafinha","Império VSP FC",95.46]],
+ 23:[["Djavan","Juka Nascimento FC",102.34],["Fabio","Fabio1990",94.81],["Osmar","EC/Osmarito",93.15],["Edoni","Só no Golle FC",91.79],["Denilson","Deni Show F.C.",91.57],["Lucas","Real Galdin",91.01],["Andre","Bonnes MC",90.47],["Guih","Oto-patamars",88.04],["Everton","Coxa 83",85.45],["Diogo","DT Football Team",84.37]],
+ 24:[["Leonardo","KIKO Futebol Show",137.22],["Andre","Bonnes MC",130.12],["Giovane","Club Inazuma Eleven",129.84],["Forbeci","Forbes Futebol Clube",129.69],["Leandro","LDN Soccer",129.69],["Everton","Coxa 83",128.72],["Izidoro","King James2023",128.47],["Irineu","Bateias 1923",123.27],["Djavan","Juka Nascimento FC",122.37],["Rodrigo","SCCP Wenceslau",122.14]],
+ 25:[["Wellinton","Peka35",125.03],["Guih","Oto-patamars",122.39],["Denilson","Deni Show F.C.",112.63],["Wagner","O Coritiba é Pequeno",111.83],["Rafinha","Império VSP FC",111.23],["Leandro","LDN Soccer",110.13],["Paulo","Buiu Marrentos F.C.",109.93],["Giovane","Club Inazuma Eleven",108.98],["Adriano","Tamandayorque FC",108.55],["Fabio","P@in Machine",108.13]],
+ 26:[["Deivid","É caixaaaa...",108.18],["Neusir","Quart4 Força4 SCCP",108.14],["Paulo","Buiu Marrentos F.C.",105.20],["Rodrigo","SCCP Wenceslau",104.36],["Adriano","Tamandayorque FC",102.05],["Andre","Bonnes MC",100.80],["Wellinton","Peka35",100.00],["Osmar","EC/Osmarito",99.56],["Cristiano","Schuh Team",98.00],["Fabio","Fabio1990",97.21]],
+ 27:[["Mauro","M.C Pinheiro",124.55],["Adriano","Tamandayorque FC",112.27],["Adelio","Athletico 1977",109.57],["Rafinha","Império VSP FC",106.07],["Guilherme","#desbochandoFC",103.47],["Wellinton","Peka35",99.92],["Andre","Bonnes MC",99.57],["Everton","Coxa 83",98.77],["Rodrigo","SCCP Wenceslau",98.07],["Giovane","Club Inazuma Eleven",97.77]],
+ 28:[["Aurelio","Futebas D+",100.34],["Andre","Bonnes MC",99.44],["Guih","Oto-patamars",96.39],["Rafael","Athletico F.R.G",94.89],["Fabio","P@in Machine",92.29],["Neusir","Quart4 Força4 SCCP",91.54],["Leandro","vinotteamFC",91.19],["Giovane","Club Inazuma Eleven",89.94],["Rafinha","Império VSP FC",89.84],["Guilherme","#desbochandoFC",88.54]],
+ 29:[["Eduardo","Toca em Mim Pai FC",130.87],["Giovane","Club Inazuma Eleven",128.76],["Leandro","LDN Soccer",125.84],["Andre","Galácticos de Pinhais",123.46],["Augusto","Koga 1991 FC",122.97],["Everton","Coxa 83",122.76],["Placido","Flaplatz",122.36],["Rafinha","Império VSP FC",121.64],["Wellinton","Peka35",121.16],["Osmar","EC/Osmarito",121.15]],
+ 30:[["Rodrigo","SCCP Wenceslau",131.48],["Sulivan","Lavigushow",124.56],["Ana","Aninha_Silva FC",121.20],["Giovane","Club Inazuma Eleven",120.83],["Odair","Império Simão",119.93],["Placido","Flaplatz",119.34],["Diogo","DT Football Team",119.13],["Paulo","Buiu Marrentos F.C.",118.03],["Adriano","Tamandayorque FC",117.23],["Raffael","RaffaelRGS",117.23]],
+ 31:[["Leonardo","KIKO Futebol Show",108.21],["Neusir","Quart4 Força4 SCCP",102.69],["Deivid","É caixaaaa...",101.04],["Diogo","DT Football Team",99.24],["Raffael","RaffaelRGS",99.04],["Giovane","Club Inazuma Eleven",97.14],["Wellinton","Peka35",96.64],["Guih","Oto-patamars",96.61],["Ari","Azeitona_64",96.14],["Leandro","vinotteamFC",94.79]],
+ 32:[["Guih","Oto-patamars",106.86],["Osmar","EC/Osmarito",104.61],["Eduardo","Toca em Mim Pai FC",102.82],["Jhenifer","Bando 1910",100.46],["Kiko","Barui de Lobo",98.66],["Zyla","zylaclube",98.51],["Wagner","O Coritiba é Pequeno",96.16],["Everton","Coxa 83",95.41],["Sergio","São Leal FC",95.04],["Irineu","Bateias 1923",94.96]],
+ 33:[["Paulo","PUMA PCF",125.23],["Irineu","Bateias 1923",113.61],["Neusir","Quart4 Força4 SCCP",111.11],["Moises","Takemevoe FC",110.21],["Adelio","Athletico 1977",105.41],["Sulivan","Lavigushow",104.56],["Michel","Parça Vai Corinthians",103.81],["Fabio","P@in Machine",103.50],["Andre","Galácticos de Pinhais",102.30],["Adriano","Tamandayorque FC",101.21]],
+ 34:[["Sergio","São Leal FC",125.85],["Adriel","Agrejonis FC",124.55],["Rafinha","Império VSP FC",124.45],["Leonardo","KIKO Futebol Show",119.95],["Guih","Oto-patamars",119.35],["Denilson","Deni Show F.C.",119.35],["Leandro","LDN Soccer",117.29],["Djavan","Juka Nascimento FC",115.45],["Paulo","Buiu Marrentos F.C.",114.85],["Icaro","Maragogia",113.07]]
+};
+const PREMIOS=[20,15,12,10,5,5,5,5,5,5];
+const TOTAL_RODADAS=Math.max(...Object.keys(RAW).map(Number));
+
+// ===== utilidades =====
+const $=s=>document.querySelector(s);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const fmt=n=>n.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2});
+const brl=n=>"R$ "+fmt(n);
+const ROUNDS=Object.keys(RAW).map(Number).sort((a,b)=>a-b);
+const E=[];ROUNDS.forEach(r=>RAW[r].forEach((e,i)=>E.push({r,pos:i+1,nome:e[0],time:e[1],pts:e[2],premio:PREMIOS[i]})));
+const RS={};ROUNDS.forEach(r=>{const p=RAW[r].map(x=>x[2]);RS[r]={r,top:p[0],cut:p[9],avg:p.reduce((a,b)=>a+b,0)/p.length,gap:p[0]-p[1],champ:RAW[r][0]}});
+function people(from=1,to=TOTAL_RODADAS){
+  const m=new Map();
+  E.filter(e=>e.r>=from&&e.r<=to).forEach(e=>{
+    let p=m.get(e.nome);
+    if(!p){p={nome:e.nome,premio:0,pres:0,vit:0,pod:0,soma:0,best:99,times:new Set(),hist:[]};m.set(e.nome,p)}
+    p.premio+=e.premio;p.pres++;if(e.pos===1)p.vit++;if(e.pos<=3)p.pod++;p.soma+=e.pts;p.best=Math.min(p.best,e.pos);p.times.add(e.time);p.hist.push(e);
+  });
+  return [...m.values()].map(p=>({...p,media:p.soma/p.pres,times:[...p.times]}));
+}
+const ALL=people();
+const reduceMotion=matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// ===== KPIs =====
+(function(){
+  const top=E.reduce((a,b)=>b.pts>a.pts?b:a);
+  const total=E.reduce((a,b)=>a+b.premio,0);
+  const lider=[...ALL].sort((a,b)=>b.premio-a.premio||b.pres-a.pres)[0];
+  $("#faixa").textContent="· "+ROUNDS.length+" rodadas registradas (1ª a "+TOTAL_RODADAS+"ª)";
+  const k=[
+    [ROUNDS.length,"Rodadas registradas","de "+TOTAL_RODADAS+" já disputadas",0],
+    [total,"Prêmios distribuídos","R$ 87,00 por rodada",2,"R$ "],
+    [ALL.length,"Premiados diferentes","já entraram no top 10",0],
+    [top.pts,"Maior pontuação",top.nome+" · "+top.r+"ª rodada",2]
+  ];
+  $("#kpis").innerHTML=k.map((x,i)=>`<div class="kpi"><b class="num" data-v="${x[0]}" data-d="${x[3]}" data-p="${x[4]||""}">${(x[4]||"")+(x[3]?fmt(x[0]):x[0])}</b><span>${x[1]}</span><em>${esc(x[2])}</em></div>`).join("");
+  if(!reduceMotion){
+    document.querySelectorAll(".kpi b").forEach(el=>{
+      const v=+el.dataset.v,d=+el.dataset.d,p=el.dataset.p,t0=performance.now();
+      const tick=t=>{const k=Math.min(1,(t-t0)/900),e=1-Math.pow(1-k,3),n=v*e;el.textContent=p+(d?fmt(n):Math.round(n));if(k<1)requestAnimationFrame(tick)};
+      requestAnimationFrame(tick);
+    });
+  }
+})();
+
+// ===== Filtro por rodada =====
+let sel=ROUNDS[ROUNDS.length-1];
+function renderChips(){
+  let h="";
+  for(let r=1;r<=TOTAL_RODADAS;r++){
+    const ok=!!RAW[r];
+    h+=`<button type="button" class="chip" data-r="${r}" ${ok?"":"disabled title=\"Sem registro\""} aria-pressed="${r===sel}">${r}</button>`;
+  }
+  $("#chips").innerHTML=h;
+}
+function delta(cur,prev,suf=""){
+  if(prev==null)return "";
+  const d=cur-prev;if(Math.abs(d)<0.005)return `<span class="delta">=</span>`;
+  return `<span class="delta ${d>0?"up":"down"}">${d>0?"▲":"▼"} ${fmt(Math.abs(d))}${suf}</span>`;
+}
+function renderRound(){
+  const L=RAW[sel],s=RS[sel],i=ROUNDS.indexOf(sel),prev=i>0?RS[ROUNDS[i-1]]:null;
+  $("#rTitle").textContent=sel+"ª Rodada";
+  const step=(n,cls)=>`<div class="step ${cls}"><div class="who">${esc(L[n][0])}</div><div class="team">${esc(L[n][1])}</div><div class="pts num">${fmt(L[n][2])}</div><div class="block">${n+1}º</div></div>`;
+  $("#podium").innerHTML=step(1,"p2")+step(0,"p1")+step(2,"p3");
+  const pl=prev?` <small style="color:var(--muted);font-size:.7rem">vs ${prev.r}ª</small>`:"";
+  $("#rStats").innerHTML=
+    `<div class="stat"><span>Pontos do campeão${pl}</span><b>${fmt(s.top)}</b>${delta(s.top,prev&&prev.top)}</div>`+
+    `<div class="stat"><span>Média do top 10${pl}</span><b>${fmt(s.avg)}</b>${delta(s.avg,prev&&prev.avg)}</div>`+
+    `<div class="stat"><span>Corte p/ premiar (10º)</span><b>${fmt(s.cut)}</b>${delta(s.cut,prev&&prev.cut)}</div>`+
+    `<div class="stat"><span>Vantagem do 1º p/ 2º</span><b>${fmt(s.gap)}</b></div>`;
+  $("#rTable").innerHTML=`<thead><tr><th>#</th><th>Participante</th><th class="r">Pontos</th><th class="r">Prêmio</th></tr></thead><tbody>`+
+    L.map((e,k)=>`<tr class="g${k+1}"><td><span class="pos">${k+1}</span></td><td><div class="nm">${esc(e[0])}</div><div class="tm">${esc(e[1])}</div></td><td class="r">${fmt(e[2])}${k?`<span class="gapsmall">−${fmt(L[0][2]-e[2])}</span>`:`<span class="gapsmall">líder</span>`}</td><td class="r prize">${brl(PREMIOS[k])}</td></tr>`).join("")+"</tbody>";
+  document.querySelectorAll("#chips .chip").forEach(c=>c.setAttribute("aria-pressed",+c.dataset.r===sel));
+  document.querySelectorAll("#etapas tbody tr").forEach(t=>t.classList.toggle("on",+t.dataset.r===sel));
+}
+function goRound(r,scroll){sel=r;renderRound();if(scroll)$("#rodada").scrollIntoView({behavior:reduceMotion?"auto":"smooth"})}
+$("#chips").addEventListener("click",e=>{const b=e.target.closest(".chip");if(b&&!b.disabled)goRound(+b.dataset.r)});
+
+function renderEtapas(){
+  const maxAvg=Math.max(...ROUNDS.map(r=>RS[r].avg)),minAvg=Math.min(...ROUNDS.map(r=>RS[r].avg));
+  $("#etapas").innerHTML=`<thead><tr><th>Rodada</th><th>Campeão</th><th class="r">Pts campeão</th><th class="r">Média top 10</th><th class="r">Corte 10º</th><th class="r">1º − 2º</th></tr></thead><tbody>`+
+    ROUNDS.map((r,i)=>{const s=RS[r],p=i?RS[ROUNDS[i-1]]:null;
+      const tag=s.avg===maxAvg?' <span class="delta up">mais forte</span>':s.avg===minAvg?' <span class="delta down">mais fraca</span>':"";
+      return `<tr data-r="${r}"><td><b>${r}ª</b></td><td><div class="nm">${esc(s.champ[0])}</div><div class="tm">${esc(s.champ[1])}</div></td><td class="r">${fmt(s.top)}</td><td class="r">${fmt(s.avg)} ${delta(s.avg,p&&p.avg)}${tag}</td><td class="r">${fmt(s.cut)}</td><td class="r">${fmt(s.gap)}</td></tr>`}).join("")+"</tbody>";
+}
+$("#etapas").addEventListener("click",e=>{const t=e.target.closest("tr[data-r]");if(t)goRound(+t.dataset.r,true)});
+
+// ===== Campeões =====
+function renderChamps(){
+  $("#champs").innerHTML=ROUNDS.map(r=>{const c=RS[r].champ;return `<button type="button" class="champ" data-r="${r}"><div class="rd">${r}ª rodada</div><div class="nm">${esc(c[0])}</div><div class="tm">${esc(c[1])}</div><div class="pt">${fmt(c[2])}</div></button>`}).join("");
+}
+$("#champs").addEventListener("click",e=>{const b=e.target.closest(".champ");if(b)goRound(+b.dataset.r,true)});
+
+// ===== Gráfico de evolução =====
+function renderChart(){
+  const W=760,H=300,l=44,rgt=14,t=14,b=40;
+  const vals=ROUNDS.flatMap(r=>[RS[r].top,RS[r].cut]);
+  const y0=Math.floor(Math.min(...vals)/10)*10,y1=Math.ceil(Math.max(...vals)/10)*10;
+  const X=i=>l+i*(W-l-rgt)/(ROUNDS.length-1),Y=v=>t+(y1-v)*(H-t-b)/(y1-y0);
+  let g="";
+  for(let v=y0;v<=y1;v+=10){g+=`<line x1="${l}" x2="${W-rgt}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--line)" stroke-width="1"/><text x="${l-8}" y="${Y(v)+4}" text-anchor="end" fill="var(--muted)" font-size="12">${v}</text>`}
+  ROUNDS.forEach((r,i)=>{g+=`<text x="${X(i)}" y="${H-b+20}" text-anchor="middle" fill="var(--muted)" font-size="12">${r}ª</text>`});
+  const line=(key,color,w)=>{let solid="",dash="";
+    ROUNDS.forEach((r,i)=>{if(!i)return;const seg=`M${X(i-1)},${Y(RS[ROUNDS[i-1]][key])}L${X(i)},${Y(RS[r][key])}`;(r-ROUNDS[i-1]>1)?dash+=seg:solid+=seg});
+    return `<path d="${dash}" fill="none" stroke="${color}" stroke-width="${w}" stroke-dasharray="5 5" opacity=".55"/><path d="${solid}" fill="none" stroke="${color}" stroke-width="${w}" stroke-linejoin="round"/>`};
+  // área entre corte e campeão
+  let area="M"+ROUNDS.map((r,i)=>`${X(i)},${Y(RS[r].top)}`).join("L")+"L"+ROUNDS.map((r,i)=>`${X(i)},${Y(RS[r].cut)}`).reverse().join("L")+"Z";
+  g+=`<path d="${area}" fill="var(--orange)" opacity=".08"/>`;
+  g+=line("cut","var(--muted)",2)+line("avg","var(--orange)",2.5)+line("top","var(--gold)",3);
+  const maxR=ROUNDS.reduce((a,r)=>RS[r].top>RS[a].top?r:a,ROUNDS[0]);
+  ROUNDS.forEach((r,i)=>{
+    g+=`<g class="pt" data-r="${r}" style="cursor:pointer"><title>${r}ª rodada · campeão ${RS[r].champ[0]} ${fmt(RS[r].top)} · média ${fmt(RS[r].avg)} · corte ${fmt(RS[r].cut)}</title>
+      <rect x="${X(i)-12}" y="${t}" width="24" height="${H-t-b}" fill="transparent"/>
+      <circle cx="${X(i)}" cy="${Y(RS[r].top)}" r="${r===maxR?6:4}" fill="var(--gold)" stroke="var(--bg)" stroke-width="2"/>
+      <circle cx="${X(i)}" cy="${Y(RS[r].avg)}" r="3.5" fill="var(--orange)"/>
+      <circle cx="${X(i)}" cy="${Y(RS[r].cut)}" r="3" fill="var(--muted)"/></g>`;
+  });
+  const mi=ROUNDS.indexOf(maxR);
+  g+=`<text x="${X(mi)}" y="${Y(RS[maxR].top)-12}" text-anchor="middle" fill="var(--gold)" font-size="13" font-weight="700">${fmt(RS[maxR].top)}</text>`;
+  const gi=ROUNDS.findIndex((r,i)=>i&&r-ROUNDS[i-1]>1);
+  if(gi>0)g+=`<text x="${(X(gi-1)+X(gi))/2}" y="${H-b-8}" text-anchor="middle" fill="var(--muted)" font-size="11">sem registro: ${ROUNDS[gi-1]+1}ª–${ROUNDS[gi]-1}ª</text>`;
+  $("#chart").innerHTML=`<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Evolução das pontuações por rodada" style="font-family:var(--cond)">${g}</svg>`;
+}
+$("#chart").addEventListener("click",e=>{const p=e.target.closest(".pt");if(p)goRound(+p.dataset.r,true)});
+
+// ===== Ranking =====
+let metric="premio",showAll=false;
+const MET={premio:{lab:"Prêmios",f:v=>brl(v)},pres:{lab:"Top 10",f:v=>v+"x"},vit:{lab:"Vitórias",f:v=>v+"x"},pod:{lab:"Pódios",f:v=>v+"x"},media:{lab:"Média",f:v=>fmt(v)}};
+function fillRange(){
+  const o=ROUNDS.map(r=>`<option value="${r}">${r}ª</option>`).join("");
+  $("#de").innerHTML=o;$("#ate").innerHTML=o;$("#de").value=ROUNDS[0];$("#ate").value=ROUNDS[ROUNDS.length-1];
+}
+function renderRanking(){
+  let a=+$("#de").value,b=+$("#ate").value;if(a>b)[a,b]=[b,a];
+  let L=people(a,b);
+  if(metric==="media")L=L.filter(p=>p.pres>=2);
+  if(metric==="vit"||metric==="pod")L=L.filter(p=>p[metric]>0);
+  L.sort((x,y)=>y[metric]-x[metric]||y.premio-x.premio||y.pres-x.pres||x.nome.localeCompare(y.nome));
+  const n=ROUNDS.filter(r=>r>=a&&r<=b).length;
+  $("#rkNote").textContent=`${n} rodada${n>1?"s":""} no período (${a}ª a ${b}ª) · ${L.length} participante${L.length!==1?"s":""}`+(metric==="media"?" · média só de quem entrou no top 10 ao menos 2 vezes":"");
+  const max=L.length?L[0][metric]:1,lim=showAll?L.length:15;
+  $("#bars").innerHTML=L.slice(0,lim).map((p,i)=>`<div class="bar"><span class="pos num">${i+1}</span><div class="who"><div class="nm">${esc(p.nome)}</div><div class="tm">${esc(p.times.join(" · "))}</div></div><div class="track"><div class="fill" style="width:${Math.max(2,p[metric]/max*100)}%"></div></div><div class="v">${MET[metric].f(p[metric])}</div></div>`).join("")||`<p class="legend-note">Ninguém neste critério no período.</p>`;
+  $("#moreBtn").hidden=L.length<=15;
+  $("#moreBtn").textContent=showAll?"Mostrar só os 15 primeiros":`Mostrar todos (${L.length})`;
+}
+$("#de").addEventListener("change",renderRanking);$("#ate").addEventListener("change",renderRanking);
+$("#metric").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;metric=b.dataset.m;document.querySelectorAll("#metric button").forEach(x=>x.setAttribute("aria-pressed",x===b));renderRanking()});
+$("#moreBtn").addEventListener("click",()=>{showAll=!showAll;renderRanking()});
+
+// ===== Recordes =====
+function renderRecords(){
+  const top=E.reduce((a,b)=>b.pts>a.pts?b:a);
+  const by=(k,f)=>ROUNDS.reduce((a,r)=>f(RS[r][k],RS[a][k])?r:a,ROUNDS[0]);
+  const rLowChamp=by("top",(x,y)=>x<y),rTight=by("gap",(x,y)=>x<y),rWide=by("gap",(x,y)=>x>y),rStrong=by("avg",(x,y)=>x>y),rCut=by("cut",(x,y)=>x>y);
+  const sorted=k=>[...ALL].sort((a,b)=>b[k]-a[k]||b.premio-a.premio);
+  const maxPres=sorted("pres")[0].pres,presL=ALL.filter(p=>p.pres===maxPres).map(p=>p.nome);
+  const lider=sorted("premio")[0];
+  const multi=ALL.filter(p=>p.vit>=2).map(p=>`${p.nome} (${p.vit})`);
+  let ties=[];ROUNDS.forEach(r=>RAW[r].forEach((e,i)=>{if(i&&e[2]===RAW[r][i-1][2])ties.push(`${r}ª: ${RAW[r][i-1][0]} e ${e[0]} (${fmt(e[2])})`)}));
+  const avgChamp=ROUNDS.reduce((a,r)=>a+RS[r].top,0)/ROUNDS.length;
+  const C=(lab,big,txt)=>`<div class="rec"><span>${lab}</span><b>${big}</b><p>${txt}</p></div>`;
+  $("#records").innerHTML=[
+    C("Maior pontuação",fmt(top.pts),`${esc(top.nome)} · ${esc(top.time)} <small>(${top.r}ª rodada)</small>`),
+    C("Maior premiação acumulada",brl(lider.premio),`${esc(lider.nome)} <small>· ${lider.pres} vezes no top 10, ${lider.vit} vitória${lider.vit!==1?"s":""}</small>`),
+    C("Mais vezes no top 10",maxPres+"x",esc(presL.join(", "))),
+    C("Disputa mais apertada",fmt(RS[rTight].gap),`${esc(RS[rTight].champ[0])} venceu ${esc(RAW[rTight][1][0])} na ${rTight}ª rodada`),
+    C("Maior folga do campeão",fmt(RS[rWide].gap),`${esc(RS[rWide].champ[0])} disparou na ${rWide}ª rodada <small>(${fmt(RS[rWide].top)} contra ${fmt(RAW[rWide][1][2])})</small>`),
+    C("Rodada mais forte",fmt(RS[rStrong].avg),`média do top 10 na ${rStrong}ª rodada <small>· corte de ${fmt(RS[rStrong].cut)}</small>`),
+    C("Campeão com menos pontos",fmt(RS[rLowChamp].top),`${esc(RS[rLowChamp].champ[0])} na ${rLowChamp}ª rodada <small>· média dos campeões: ${fmt(avgChamp)}</small>`),
+    C("Campeões repetidos",multi.length?multi.length:"0",multi.length?esc(multi.join(", ")):"Cada rodada teve um campeão diferente"),
+    C("Empates em pontos",ties.length,ties.length?esc(ties.join(" · ")):"Nenhum empate registrado")
+  ].join("");
+}
+
+// ===== Perfil =====
+function renderPessoaSelect(){
+  const L=[...ALL].sort((a,b)=>a.nome.localeCompare(b.nome,"pt-BR"));
+  $("#pessoa").innerHTML=L.map(p=>`<option value="${esc(p.nome)}">${esc(p.nome)}</option>`).join("");
+  $("#pessoa").value=[...ALL].sort((a,b)=>b.premio-a.premio||b.pres-a.pres)[0].nome;
+}
+function renderPessoa(){
+  const p=ALL.find(x=>x.nome===$("#pessoa").value);if(!p)return;
+  const rank=[...ALL].sort((a,b)=>b.premio-a.premio||b.pres-a.pres).findIndex(x=>x.nome===p.nome)+1;
+  const S=(l,v)=>`<div class="stat"><span>${l}</span><b>${v}</b></div>`;
+  $("#pCards").innerHTML=S("Prêmios",brl(p.premio))+S("Ranking de prêmios",rank+"º de "+ALL.length)+S("Vezes no top 10",p.pres+" de "+ROUNDS.length)+S("Melhor posição",p.best+"º")+S("Vitórias / pódios",p.vit+" / "+p.pod)+S("Média de pontos",fmt(p.media))+S("Total de pontos",fmt(p.soma))+S("Melhor rodada",(()=>{const h=p.hist.reduce((a,b)=>b.pts>a.pts?b:a);return fmt(h.pts)+` <small style="font:600 .8rem var(--cond);color:var(--muted)">${h.r}ª</small>`})());
+  $("#pStrip").innerHTML=ROUNDS.map(r=>{const h=p.hist.find(x=>x.r===r);return `<div class="cell ${h?(h.pos===1?"w":"in"):"na"}" title="${r}ª rodada${h?": "+h.pos+"º, "+fmt(h.pts)+" pts":": fora do top 10"}"><b>${h?h.pos+"º":"–"}</b>${r}ª</div>`}).join("");
+  $("#pTimes").textContent="Time"+(p.times.length>1?"s":"")+": "+p.times.join(" · ");
+}
+$("#pessoa").addEventListener("change",renderPessoa);
+
+// ===== Anexo (só no PDF) =====
+function renderAll(){
+  $("#allRounds").innerHTML=ROUNDS.map(r=>`<div class="mini"><h3>${r}ª rodada</h3><table><tbody>${RAW[r].map((e,i)=>`<tr><td>${i+1}º</td><td>${esc(e[0])} <span class="tm">${esc(e[1])}</span></td><td class="r">${fmt(e[2])}</td><td class="r prize">${fmt(PREMIOS[i])}</td></tr>`).join("")}</tbody></table></div>`).join("");
+}
+
+$("#printBtn").addEventListener("click",()=>window.print());
+
+renderChips();renderEtapas();renderRound();renderChamps();renderChart();fillRange();renderRanking();renderRecords();renderPessoaSelect();renderPessoa();renderAll();
+</script>
+</body>
+</html>
